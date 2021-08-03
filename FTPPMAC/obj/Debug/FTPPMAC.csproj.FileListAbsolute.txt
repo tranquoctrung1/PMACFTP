@@ -4,3 +4,4 @@ C:\Users\TQTr\Desktop\FTPPMAC\FTPPMAC\bin\Debug\FTPPMAC.pdb
 C:\Users\TQTr\Desktop\FTPPMAC\FTPPMAC\obj\Debug\FTPPMAC.csproj.CoreCompileInputs.cache
 C:\Users\TQTr\Desktop\FTPPMAC\FTPPMAC\obj\Debug\FTPPMAC.exe
 C:\Users\TQTr\Desktop\FTPPMAC\FTPPMAC\obj\Debug\FTPPMAC.pdb
+C:\Users\TQTr\Desktop\FTPPMAC\FTPPMAC\obj\Debug\FTPPMAC.csproj.AssemblyReference.cache

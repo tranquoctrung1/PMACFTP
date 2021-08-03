@@ -25,17 +25,18 @@ namespace FTPPMAC.Controller
             {
                 // copy file
                 string source = "C:/PMAC/DATA/";
-                string fileName = "0005_02.dat";
+                string fileName = "0003_02.dat";
                 string des = "C:/PMAC/FTP/";
 
                 string fileltu = "lasttimeupdate.txt";
 
-                string channelid = "0005_02";
+                string channelid = "0003_02";
 
                 file.Copy_Files(source, fileName, des);
 
                 // run file with time
-                DateTime start = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour -1 , 0, 0);
+                DateTime start = DateTime.Now;
+
                 //DateTime start = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
 
                 string s = writeFileLastTimeUpdateAction.ReadFileSync(fileltu);
@@ -47,8 +48,30 @@ namespace FTPPMAC.Controller
                     start = new DateTime(int.Parse(sp[0]), int.Parse(sp[1]), int.Parse(sp[2]), int.Parse(sp[3]), 0, 0);
 
                 }
+                else
+                {
+                    if (DateTime.Now.Hour == 0)
+                    {
+                        start = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day - 1, 23, 0, 0);
+                    }
+                    else
+                    {
+                        start = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour - 1, 0, 0);
+                    }
+                } 
+                    
 
-                DateTime end = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, 0, 0);
+                DateTime end = DateTime.Now;
+
+                if (DateTime.Now.Hour == 24)
+                {
+                   end = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day + 1, 0, 0, 0);
+                }
+                else
+                {
+                    end = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, 0, 0);
+                }
+               
                 //DateTime end = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 14, 0, 0);
                 // get data
                 List<DataFTPModel> list = getDataPmacAction.GetData(channelid, start, end);

@@ -48,7 +48,7 @@ namespace FTPPMAC
 
             Console.WriteLine("In TimerCallback: " + DateTime.Now);
 
-            if(now.Minute == 5)
+            if(now.Minute == 10)
             {
                 MainController main = new MainController();
 
