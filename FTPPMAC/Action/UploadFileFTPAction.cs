@@ -1,6 +1,7 @@
 ﻿using FTPPMAC.Controller;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -12,10 +13,15 @@ namespace FTPPMAC.Action
 {
     public class UploadFileFTPAction
     {
-        private string host = "ftp://112.78.4.162/";
-        private string path = "SL";
-        private string user = "demo1";
-        private string pass = "123456";
+        private string host = ConfigurationManager.AppSettings["host"];
+        private string path = ConfigurationManager.AppSettings["path"];
+        private string user = ConfigurationManager.AppSettings["user"];
+        private string pass = ConfigurationManager.AppSettings["pass"];
+
+        //private string host = "ftp://112.78.4.162/";
+        //private string path = "DN";
+        //private string user = "demo1";
+        //private string pass = "123456";
         public void Upload(string folder , string file)
         {
             Log_Controller log = new Log_Controller();

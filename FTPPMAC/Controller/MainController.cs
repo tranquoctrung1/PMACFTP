@@ -20,71 +20,44 @@ namespace FTPPMAC.Controller
             WriteFileFTPAction writeFileFTPAction = new WriteFileFTPAction();
             GetDataPmacAction getDataPmacAction = new GetDataPmacAction();
             UploadFileFTPAction uploadFileFTPAction = new UploadFileFTPAction();
+            GetIndexLoggerAction getIndexLoggerAction = new GetIndexLoggerAction();
 
             try
             {
-                // copy file
-                string source = "C:/PMAC/DATA/";
-                string fileName = "0003_02.dat";
-                string des = "C:/PMAC/FTP/";
+                //// copy file
+                //string source = "C:/PMAC/DATA/";
+                //string fileName = "1001_02.dat";
+                //string des = "C:/PMAC/FTP/";
 
-                string fileltu = "lasttimeupdate.txt";
+                //file.Copy_Files(source, fileName, des);
 
-                string channelid = "0003_02";
-
-                file.Copy_Files(source, fileName, des);
+                string channelid = "1001_02";
 
                 // run file with time
                 DateTime start = DateTime.Now;
-
-                //DateTime start = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
-
-                string s = writeFileLastTimeUpdateAction.ReadFileSync(fileltu);
-
-                if (s != "" && s != null)
-                {
-                    string[] sp = s.Split(new char[] { ',' }, StringSplitOptions.None);
-
-                    start = new DateTime(int.Parse(sp[0]), int.Parse(sp[1]), int.Parse(sp[2]), int.Parse(sp[3]), 0, 0);
-
-                }
-                else
-                {
-                    if (DateTime.Now.Hour == 0)
-                    {
-                        start = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day - 1, 23, 0, 0);
-                    }
-                    else
-                    {
-                        start = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour - 1, 0, 0);
-                    }
-                } 
-                    
+                start = start.AddDays(-1);
+                start = new DateTime(start.Year, start.Month, start.Day, 0, 0, 0);
 
                 DateTime end = DateTime.Now;
+                end = new DateTime(end.Year, end.Month, end.Day, 0, 0, 0);
 
-                if (DateTime.Now.Hour == 24)
-                {
-                   end = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day + 1, 0, 0, 0);
-                }
-                else
-                {
-                    end = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, 0, 0);
-                }
+                DataLoggerModel indexStart = getIndexLoggerAction.GetIndexLogger(channelid, start);
+                DataLoggerModel indexEnd = getIndexLoggerAction.GetIndexLogger(channelid, end);
+
+                DataLoggerModel dataIndex = new DataLoggerModel();
+
+                dataIndex.TimeStamp = start;
+                dataIndex.Value = (indexEnd.Value ?? 0) - (indexStart.Value ?? 0);
                
-                //DateTime end = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 14, 0, 0);
-                // get data
-                List<DataFTPModel> list = getDataPmacAction.GetData(channelid, start, end);
-
-                if(list.Count > 0)
+                if(dataIndex != null)
                 {
                     string desFTP = "FTP";
-                    string fileNameFTP = "SL_NhaMayNuocThanhPho1_TramNuocTho_LuuLuong_";
+                    string fileNameFTP = "DN_NHAMAYNUOCBOOTHUDUC_TRAMBOM_LUULUONG_";
 
-                    string year = end.Year.ToString();
-                    string month = end.Month < 10 ? $"0{end.Month}" : end.Month.ToString();
-                    string day = end.Day < 10 ? $"0{end.Day}" : end.Day.ToString();
-                    string hour = end.Hour < 10 ? $"0{end.Hour}" : end.Hour.ToString();
+                    string year = start.Year.ToString();
+                    string month = start.Month < 10 ? $"0{start.Month}" : start.Month.ToString();
+                    string day = start.Day < 10 ? $"0{start.Day}" : start.Day.ToString();
+                    string hour = start.Hour < 10 ? $"0{start.Hour}" : start.Hour.ToString();
                     string minute = "00";
                     string second = "00";
 
@@ -92,14 +65,16 @@ namespace FTPPMAC.Controller
 
                     fileNameFTP += timeString + ".txt";
 
-                    writeFileFTPAction.WriteFileSync(desFTP, fileNameFTP, list);
+                    DataFTPModel data = new DataFTPModel();
+                    data.Time = timeString;
+                    data.Value = dataIndex.Value.ToString();
+                    data.Unit = "m3";
+                    data.Status = "00";
 
-                    writeFileLastTimeUpdateAction.WriteFileSync(fileltu, end);
+                    writeFileFTPAction.WriteFileSyncByIndex(desFTP, fileNameFTP, data);
 
                     uploadFileFTPAction.Upload(desFTP, fileNameFTP);
-
                 }
-                
             }
             catch (Exception ex)
             {

@@ -33,12 +33,16 @@ namespace FTPPMAC
             // Show
             ShowWindow(handle, SW_SHOW);
 
-            // Create a Timer object that knows to call our TimerCallback
-            // method once every 2000 milliseconds.
-            _timer = new Timer(TimerCallback, null, 0, 60000);
-            // Wait for the user to hit <Enter>
-            Console.ReadLine();
-           
+            //// Create a Timer object that knows to call our TimerCallback
+            //// method once every 2000 milliseconds.
+            //_timer = new Timer(TimerCallback, null, 0, 60000);
+            //// Wait for the user to hit <Enter>
+            //Console.ReadLine();
+
+            MainController main = new MainController();
+
+            main.Main();
+
         }
         private static void TimerCallback(Object o)
         {
@@ -48,7 +52,7 @@ namespace FTPPMAC
 
             Console.WriteLine("In TimerCallback: " + DateTime.Now);
 
-            if(now.Minute == 10)
+            if(now.Minute == 5)
             {
                 MainController main = new MainController();
 

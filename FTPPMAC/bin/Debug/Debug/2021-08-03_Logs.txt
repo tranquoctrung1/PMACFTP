@@ -1,9 +1,0 @@
-Upload Fail:2021-08-03 20:49:52:Upload file SL_NhaMayNuocThanhPho1_TramNuocTho_LuuLuong_20210803140000.txt fail with error: The remote server returned an error: (550) File unavailable (e.g., file not found, no access).
-Upload Fail:2021-08-03 20:50:11:Upload file SL_NhaMayNuocThanhPho1_TramNuocTho_LuuLuong_20210803140000.txt fail with error: The remote server returned an error: (550) File unavailable (e.g., file not found, no access).
-Upload Fail:2021-08-03 20:51:21:Upload file SL_NhaMayNuocThanhPho1_TramNuocTho_LuuLuong_20210803140000.txt fail with error: The remote server returned an error: (550) File unavailable (e.g., file not found, no access).
-Upload Fail:2021-08-03 20:57:16:Upload file SL_NhaMayNuocThanhPho1_TramNuocTho_LuuLuong_20210803140000.txt fail with error: The remote server returned an error: (550) File unavailable (e.g., file not found, no access).
-Upload Fail:2021-08-03 21:39:20:Upload file SL_NhaMayNuocThanhPho1_TramNuocTho_LuuLuong_20210803140000.txt fail with error: The remote server returned an error: (550) File unavailable (e.g., file not found, no access).
-Upload Fail:2021-08-03 21:49:47:Upload file SL_NhaMayNuocThanhPho1_TramNuocTho_LuuLuong_20210803140000.txt fail with error: Invalid URI: The hostname could not be parsed.
-Upload Fail:2021-08-03 21:52:20:Upload file SL_NhaMayNuocThanhPho1_TramNuocTho_LuuLuong_20210803140000.txt fail with error: Invalid URI: The hostname could not be parsed.
-Upload Fail:2021-08-03 21:53:29:Upload file SL_NhaMayNuocThanhPho1_TramNuocTho_LuuLuong_20210803140000.txt fail with error: Invalid URI: The hostname could not be parsed.
-Upload Fail:2021-08-03 21:55:07:Upload file SL_NhaMayNuocThanhPho1_TramNuocTho_LuuLuong_20210803140000.txt fail with error: The remote name could not be resolved: '112.78.4.162sl'

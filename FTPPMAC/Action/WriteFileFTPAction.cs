@@ -120,5 +120,31 @@ namespace FTPPMAC.Action
                 file.Close();
             }
         }
+
+        public void WriteFileSyncByIndex(string folder, string fileName, DataFTPModel item)
+        {
+            if (!CheckDirectory(folder))
+            {
+                CreateDirectory(folder);
+            }
+
+            if (!CheckFile(folder, fileName))
+            {
+                CreateFile(folder, fileName);
+            }
+
+            string path = Path.Combine(folder, fileName);
+
+            using (StreamWriter file = new StreamWriter(path, append: false))
+            {
+                
+                string st = $"{item.Time}\t{item.Value}\t{item.Unit}\t{item.Status}{System.Environment.NewLine}";
+
+                file.Write(st);
+                
+
+                file.Close();
+            }
+        }
     }
 }
